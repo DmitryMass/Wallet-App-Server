@@ -1,4 +1,7 @@
 const Fastify = require('fastify');
+const sequelizeDB = require('./db');
+const path = require('path');
+
 const { User, UserCards, UsersCash } = require('./models/models');
 const { compare, hash } = require('bcrypt');
 const { sign, verify } = require('jsonwebtoken');
@@ -9,6 +12,7 @@ const {
   removeCardValidationScheme,
 } = require('./ValidationScheme/sign-validation');
 
+require('./models/models');
 require('dotenv').config();
 
 const SECRET_KEY = 'very secret';
@@ -26,6 +30,16 @@ fastify.register(require('@fastify/multipart'), {
 fastify.register(require('@fastify/cookie'), {
   secret: 'my-secret',
   parseOption: {},
+});
+
+fastify.register(require('@fastify/static'), {
+  root: path.join(__dirname, '../client/dist'),
+});
+
+fastify.get('/*', async (request, reply) => {
+  return reply.sendFile(
+    path.reslove(__dirname, '../client/dist', 'index.html')
+  );
 });
 
 function jwtToken(id, email) {
@@ -270,6 +284,19 @@ fastify.register((instance, {}, done) => {
 fastify.get('/', async (request, reply) => {
   return reply.send('Hello');
 });
+
+const { PORT } = process.env;
+const CURRENTPORT = PORT || 3000;
+const start = async () => {
+  try {
+    await sequelizeDB.authenticate(); // проверка дб в консоле при npm run-e
+    // await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
+    fastify.listen(CURRENTPORT, () => console.log(CURRENTPORT));
+  } catch (err) {
+    console.log(err);
+  }
+};
+start();
 
 module.exports = {
   SECRET_KEY,
