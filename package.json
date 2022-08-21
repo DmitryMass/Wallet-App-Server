@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "16.14.2"
-    },
+  },
   "description": "",
   "main": "./src/index.js",
   "scripts": {
@@ -23,9 +23,9 @@
     "prettier": "^2.6.2"
   },
   "dependencies": {
-    "@fastify/cookie": "^6.0.0",
-    "@fastify/cors": "^7.0.0",
-    "@fastify/multipart": "^6.0.0",
+    "@fastify/cookie": "^8.0.0",
+    "@fastify/cors": "^8.1.0",
+    "@fastify/multipart": "^7.1.0",
     "@fastify/static": "^6.5.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
