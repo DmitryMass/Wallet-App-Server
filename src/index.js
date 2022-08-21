@@ -294,7 +294,7 @@ const start = async () => {
   try {
     await sequelizeDB.authenticate(); // проверка дб в консоле при npm run-e
     await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
-    fastify.listen(CURRENTPORT, () => console.log(CURRENTPORT));
+    fastify.listen(CURRENTPORT, '0.0.0.0', () => console.log(CURRENTPORT));
   } catch (err) {
     console.log(err);
   }
