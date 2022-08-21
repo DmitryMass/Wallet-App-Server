@@ -1,0 +1,31 @@
+.balance__overall {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+.balance__total {
+  margin: 15px 0;
+}
+.balance__total {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.balance__total_ua,
+.balance__total_usd,
+.balance__total_eur {
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 576px) {
+  .balance__total_ua,
+  .balance__total_usd,
+  .balance__total_eur {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}

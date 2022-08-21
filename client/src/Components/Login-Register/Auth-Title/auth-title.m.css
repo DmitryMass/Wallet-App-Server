@@ -1,0 +1,38 @@
+.auth__wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.auth__title,
+.auth__myApp {
+  font-size: 21px;
+  line-height: 25px;
+}
+.auth__myApp {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #47be37;
+}
+.auth__link,
+.auth__sublink {
+  font-size: 13px;
+  line-height: 20px;
+  color: #8d8d8d;
+}
+.auth__link {
+  color: #47be37;
+}
+
+@media screen and (max-width: 576px) {
+  .auth__myApp {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .auth__title {
+    display: none;
+  }
+  .auth__sublink {
+    display: none;
+  }
+}

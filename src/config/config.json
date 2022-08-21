@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "wallet",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "qhdwzxiknqchuw",
+    "password": "e3a6b193ae4871cc3bc4f4300e5c5b1390a43be3d859cc6372ad072aaaa66f2a",
+    "database": "d93s5rbgqsgbqa",
+    "host": "ec2-34-241-90-235.eu-west-1.compute.amazonaws.com",
+    "dialect": "postgres"
+  }
+}

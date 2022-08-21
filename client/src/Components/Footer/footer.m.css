@@ -1,0 +1,14 @@
+.footer {
+  min-height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0px 1px 0px #fdfdfd91;
+  background: linear-gradient(171deg, rgb(55 54 50) 32%, rgb(112 144 134) 83%);
+}
+.footer__title {
+  color: white;
+}
+.footer__title > span {
+  font-weight: 500;
+}

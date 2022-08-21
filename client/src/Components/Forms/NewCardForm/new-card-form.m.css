@@ -1,0 +1,18 @@
+.form__wrapper {
+  padding: 10px;
+  max-width: 350px;
+  width: 100%;
+}
+
+.form__btnGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+@media screen and (max-width: 576px) {
+  .form__btnGroup {
+    flex-direction: column;
+  }
+}

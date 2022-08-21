@@ -1,0 +1,32 @@
+.cash__wrapper {
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+.cash__balance {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 500;
+}
+@media screen and (max-width: 576px) {
+  .cash__balance {
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+.cash__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cash__btnGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

@@ -1,0 +1,27 @@
+.wallet__main {
+  min-height: calc(100vh - 130px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.wallet__info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.wallet__logout {
+  margin-top: 25px;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .wallet__main {
+    padding: 20px 0;
+  }
+  .wallet__info {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}

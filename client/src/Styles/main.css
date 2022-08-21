@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+:root {
+  /* Containers */
+  --x-large: 1230px;
+  --large: 992px;
+  --medium: 768px;
+  --small: 576px;
+  /* Container Screens */
+  --x-large-screen: 1140px;
+  --large-screen: 960px;
+  --medium-screen: 720px;
+  --small-screen: 540px;
+  /* Some Colors */
+  --btn: rgb(152, 151, 151);
+  --btn-success: rgb(9, 185, 9);
+  --btn-success-hover: rgb(0, 98, 37);
+
+  --btn-reversal: rgb(184, 2, 2);
+  --btn-reversal-hover: rgb(226, 15, 15);
+
+  --btn-copy: rgb(118, 118, 250);
+  --btn-edit-hover: rgb(6, 6, 6);
+}
+
+.wrapper {
+  min-height: calc(100vh - 45px);
+}
+
+/* Containers */
+.container {
+  max-width: var(--x-large);
+  padding: 0 25px;
+  margin: 0 auto;
+  box-sizing: content-box;
+  width: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: var(--x-large-screen);
+  }
+}
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: var(--large-screen);
+    padding: 0 15px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: var(--medium-screen);
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    max-width: var(--small-screen);
+  }
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.title__balance {
+  font-size: 18px;
+}
+.title__form {
+  color: white;
+}
+.title__auth {
+  font-size: 42px;
+  line-height: 58px;
+  font-weight: 500;
+  color: #3a3d59;
+}
+
+@media screen and (max-width: 576px) {
+  .title__auth {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+}
+/* Form Select */
+.form__select {
+  display: block;
+  width: 75px;
+  height: 100%;
+  border: none;
+  color: green;
+  border-radius: 8px;
+  text-align: center;
+  margin: 10px auto;
+  padding: 2px;
+}
+/* Button */
+.button {
+  border: none;
+  background: var(--btn);
+  font-size: 14px;
+  line-height: 18px;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 8px;
+  height: 100%;
+}
+
+.button__success {
+  background-color: var(--btn-success);
+  padding: 10px 20px;
+  font-size: 18px;
+  line-height: 21px;
+  transform: scale(1);
+  transition: all 0.2s linear;
+}
+.button__success:hover {
+  box-shadow: inset 0px 0px 4px var(--btn-success-hover);
+  transform: scale(1.1);
+  transition: all 0.2s linear;
+}
+.button__reversal {
+  transform: scale(1);
+  transition: all 0.2s linear;
+  background-color: var(--btn-reversal);
+}
+.button__reversal:hover,
+.button__form:hover {
+  background-color: var(--btn-reversal-hover);
+  transform: scale(1.1);
+  transition: all 0.2s linear;
+}
+.button__form {
+  background-color: var(--btn-reversal);
+  padding: 10px 20px;
+  font-size: 18px;
+  line-height: 21px;
+  transform: scale(1);
+  transition: all 0.2s linear;
+}
+
+.button__edit {
+  transform: scale(1);
+  transition: all 0.2s linear;
+  background-color: var(--btn);
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.button__edit:hover {
+  transition: all 0.2s ease-out;
+  box-shadow: inset 0 0 6px var(--btn-edit-hover);
+  transform: scale(1.1);
+  transition: all 0.2s linear;
+}
+
+.button__copy {
+  transform: scale(1);
+  transition: all 0.2s linear;
+  background-color: var(--btn-copy);
+  color: white;
+}
