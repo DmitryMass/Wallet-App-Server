@@ -281,7 +281,7 @@ if (NODE_ENV === 'production') {
 
   fastify.get('/', async (request, reply) => {
     return reply.sendFile(
-      path.reslove(__dirname, '../client/dist', 'index.html')
+      path.resolve(__dirname, '../client/dist', 'index.html')
     );
   });
 } else {
