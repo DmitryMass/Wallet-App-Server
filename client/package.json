@@ -8,7 +8,7 @@
     "start": "webpack serve --open --mode=development"
   },
   "keywords": [],
-  "proxy": "https://testing-rep.herokuapp.com",
+  "proxy": "http://localhost:3000",
   "author": "",
   "license": "ISC",
   "dependencies": {
