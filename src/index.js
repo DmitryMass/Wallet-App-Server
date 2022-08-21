@@ -61,8 +61,6 @@ fastify.post(
   }
 );
 
-//
-
 fastify.post('/api/login', signValidationScheme, async (request, reply) => {
   const { email, password } = request.body;
   const user = await User.findOne({ where: { email } });
