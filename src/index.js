@@ -14,7 +14,7 @@ const sequelizeDB = require('./db');
 require('./models/models');
 require('dotenv').config();
 
-const SECRET_KEY = 'very secret';
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const fastify = Fastify({
   logger: true,
@@ -255,7 +255,6 @@ fastify.register((instance, {}, done) => {
       if (cash) {
         await cash.destroy();
         await cash.save();
-
         return reply.send(
           await UsersCash.findAll({ where: { userId: user.id } })
         );
@@ -264,31 +263,11 @@ fastify.register((instance, {}, done) => {
       return reply.status(404).send({ info: 'Cash with this id not found' });
     }
   );
-
   done();
 });
 
-sequelizeDB.connect;
-// connect возможно не нужный
-
-const { PORT, NODE_ENV } = process.env;
+const { PORT } = process.env;
 const CURRENTPORT = PORT || 3000;
-
-if (NODE_ENV === 'production') {
-  fastify.register(require('@fastify/static'), {
-    root: path.join(__dirname, '../client/dist'),
-  });
-
-  fastify.get('/', async (request, reply) => {
-    return reply.sendFile(
-      path.resolve(__dirname, '../client/dist', 'index.html')
-    );
-  });
-} else {
-  fastify.get('/', async (request, reply) => {
-    return reply.send('api running');
-  });
-}
 
 const start = async () => {
   try {

@@ -1,9 +1,10 @@
 Server for Wallet App
-https://github.com/DmitryMass/Wallet-App-Server-Version -- FrontEnd
 
-For starting server
+App: https://jay-wallet-app.herokuapp.com/
+Client : https://github.com/DmitryMass/Wallet-App-Client
 
-1. Npm i (install dev n dependencies)
-2. Npm start (starting server)
+Used:
 
-(Needed PostgresQL db name wallet)
+1. NodeJs (Fastify - cors/multipart/proxy/static etc.)
+2. PostgresQL / Sequelize
+3. bcrypt / jswebtoken / validationScheme
