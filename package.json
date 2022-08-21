@@ -1,6 +1,9 @@
 {
   "name": "jimmy-co-wallet-server",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.14.2"
+    },
   "description": "",
   "main": "./src/index.js",
   "scripts": {
