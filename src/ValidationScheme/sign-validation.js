@@ -38,7 +38,6 @@ const cardValidationScheme = {
         cvv: {
           type: 'number',
           minimum: 3,
-          maximum: 3,
         },
         amount: {
           type: 'number',
