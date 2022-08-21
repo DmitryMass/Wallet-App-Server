@@ -1,5 +1,4 @@
 const Fastify = require('fastify');
-const path = require('path');
 const { User, UserCards, UsersCash } = require('./models/models');
 const { compare, hash } = require('bcrypt');
 const { sign, verify } = require('jsonwebtoken');
