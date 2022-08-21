@@ -42,7 +42,6 @@ const cardValidationScheme = {
         amount: {
           type: 'number',
           minimum: 1,
-          maximum: 10,
         },
       },
     },
@@ -58,7 +57,6 @@ const amountValidationScheme = {
         amount: {
           type: 'number',
           minimum: 1,
-          maximum: 10,
         },
       },
     },
