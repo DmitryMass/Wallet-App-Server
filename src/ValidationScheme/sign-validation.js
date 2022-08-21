@@ -37,13 +37,13 @@ const cardValidationScheme = {
         },
         cvv: {
           type: 'number',
-          minLength: 3,
-          maxLength: 4,
+          minimum: 3,
+          maximum: 4,
         },
         amount: {
           type: 'number',
-          minLength: 1,
-          maxLength: 10,
+          minimum: 1,
+          maximum: 10,
         },
       },
     },
@@ -58,8 +58,8 @@ const amountValidationScheme = {
       properties: {
         amount: {
           type: 'number',
-          minLength: 1,
-          maxLength: 10,
+          minimum: 1,
+          maximum: 10,
         },
       },
     },

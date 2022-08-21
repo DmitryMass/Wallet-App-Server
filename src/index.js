@@ -274,27 +274,32 @@ sequelizeDB.connect;
 const { PORT, NODE_ENV } = process.env;
 const CURRENTPORT = PORT || 3000;
 
-if (NODE_ENV === 'production') {
-  fastify.register(require('@fastify/static'), {
-    root: path.join(__dirname, '../client/dist'),
-  });
+// if (NODE_ENV === 'production') {
+//   fastify.register(require('@fastify/static'), {
+//     root: path.join(__dirname, '../client/dist'),
+//   });
 
-  fastify.get('/*', async (request, reply) => {
-    return reply.sendFile(
-      path.reslove(__dirname, '../client/dist', 'index.html')
-    );
-  });
-} else {
-  fastify.get('/', async (request, reply) => {
-    return reply.send('api running');
-  });
-}
+//   fastify.get('/*', async (request, reply) => {
+//     return reply.sendFile(
+//       path.reslove(__dirname, '../client/dist', 'index.html')
+//     );
+//   });
+// } else {
+//   fastify.get('/', async (request, reply) => {
+//     return reply.send('api running');
+//   });
+// }
 
 const start = async () => {
   try {
     await sequelizeDB.authenticate(); // проверка дб в консоле при npm run-e
     await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
-    fastify.listen(CURRENTPORT, '0.0.0.0').then(() => console.log(CURRENTPORT));
+    fastify
+      .listen({
+        port: CURRENTPORT,
+        host: '0.0.0.0',
+      })
+      .then(() => console.log(CURRENTPORT));
   } catch (err) {
     console.log(err);
   }
