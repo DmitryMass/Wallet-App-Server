@@ -1,5 +1,4 @@
 const Fastify = require('fastify');
-const sequelizeDB = require('./db');
 const path = require('path');
 
 const { User, UserCards, UsersCash } = require('./models/models');
@@ -11,6 +10,7 @@ const {
   amountValidationScheme,
   removeCardValidationScheme,
 } = require('./ValidationScheme/sign-validation');
+const sequelizeDB = require('./db');
 
 require('./models/models');
 require('dotenv').config();
@@ -30,16 +30,6 @@ fastify.register(require('@fastify/multipart'), {
 fastify.register(require('@fastify/cookie'), {
   secret: 'my-secret',
   parseOption: {},
-});
-
-fastify.register(require('@fastify/static'), {
-  root: path.join(__dirname, '../client/dist'),
-});
-
-fastify.get('/*', async (request, reply) => {
-  return reply.sendFile(
-    path.reslove(__dirname, '../client/dist', 'index.html')
-  );
 });
 
 function jwtToken(id, email) {
@@ -281,16 +271,32 @@ fastify.register((instance, {}, done) => {
   done();
 });
 
-fastify.get('/', async (request, reply) => {
-  return reply.send('Hello');
-});
+sequelizeDB.connect;
+// connect возможно не нужный
 
-const { PORT } = process.env;
+const { PORT, NODE_ENV } = process.env;
 const CURRENTPORT = PORT || 3000;
+
+if (NODE_ENV === 'production') {
+  fastify.register(require('@fastify/static'), {
+    root: path.join(__dirname, '../client/dist'),
+  });
+
+  fastify.get('/*', async (request, reply) => {
+    return reply.sendFile(
+      path.reslove(__dirname, '../client/dist', 'index.html')
+    );
+  });
+} else {
+  fastify.get('/', async (request, reply) => {
+    return reply.send('api running');
+  });
+}
+
 const start = async () => {
   try {
     await sequelizeDB.authenticate(); // проверка дб в консоле при npm run-e
-    // await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
+    await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
     fastify.listen(CURRENTPORT, () => console.log(CURRENTPORT));
   } catch (err) {
     console.log(err);

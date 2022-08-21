@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': 'https://testing-rep.herokuapp.com',
     },
     static: {
       directory: path.join(__dirname, 'dist'),
