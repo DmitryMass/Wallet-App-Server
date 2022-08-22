@@ -1,20 +1,15 @@
 import Fastify from 'fastify';
 import { User, UserCards, UsersCash } from './models/models.mjs';
-import { compare, hash } from 'bcrypt';
 import pkg from 'jsonwebtoken';
-// import sequelizeDataBase from './db.mjs';
 import {
-  signValidationScheme,
   amountValidationScheme,
   removeCardValidationScheme,
   cardValidationScheme,
 } from './ValidationScheme/sign-validation.mjs';
-// import './models/models.mjs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const { sign, verify } = pkg;
-const SECRET_KEY = process.env.SECRET_KEY;
+const { verify } = pkg;
 
 export const fastify = Fastify({
   logger: true,
@@ -27,69 +22,16 @@ fastify.register(import('@fastify/multipart'), {
 });
 
 fastify.register(import('@fastify/cookie'), {
-  secret: 'my-secret',
+  secret: process.env.MY_SECRET,
   parseOption: {},
 });
 
-function jwtToken(id, email) {
-  return sign(
-    {
-      id,
-      email,
-    },
-    SECRET_KEY,
-    { expiresIn: '24h' }
-  );
-}
-
-fastify.post(
-  '/api/registration',
-  signValidationScheme,
-  async (request, reply) => {
-    const { email, password } = request.body;
-
-    if (await User.findOne({ where: { email } })) {
-      return reply.status(400).send({ info: 'Email already exist' });
-    }
-    const user = await User.create({
-      email,
-      password: await hash(password, 10),
-    });
-
-    user.save();
-    return reply.status(200).send({ info: 'Registration successful' });
-  }
-);
-
-fastify.post('/api/login', signValidationScheme, async (request, reply) => {
-  const { email, password } = request.body;
-  const user = await User.findOne({ where: { email } });
-
-  if (!user) {
-    return reply.status(400).send({ info: 'User not found' });
-  }
-
-  if (user && (await compare(password, user.password))) {
-    const newToken = jwtToken(user.id, user.email);
-    return reply
-      .setCookie('newToken', newToken, {
-        httpOnly: true,
-      })
-      .send({ info: 'Ok' });
-  }
-  return reply.status(400).send({ info: 'Not correct password' });
-});
-
-fastify.delete('/api/logout', async (request, reply) => {
-  return reply.clearCookie('newToken').send('Token deleted');
-});
 //
 
 fastify.register((instance, {}, done) => {
   instance.addHook('onRequest', async (request, reply) => {
     const { newToken } = request.cookies;
-
-    const userInfo = verify(newToken, SECRET_KEY);
+    const userInfo = verify(newToken, process.env.SECRET_KEY);
 
     if (userInfo) {
       request.user = await User.findOne({
@@ -104,12 +46,12 @@ fastify.register((instance, {}, done) => {
 
   instance.get('/api/cards', async (request, reply) => {
     const { user } = request;
-
     const cards = await UserCards.findAll({
       where: {
         userId: user.id,
       },
     });
+
     if (cards) {
       return reply.send(cards);
     }
@@ -133,7 +75,9 @@ fastify.register((instance, {}, done) => {
       scheme,
       userId: user.id,
     });
+
     card.save();
+
     return reply.send(
       await UserCards.findAll({
         where: {
@@ -184,6 +128,7 @@ fastify.register((instance, {}, done) => {
     }
   );
 
+  // Api Cash
   instance.get('/api/cash', async (request, reply) => {
     const { user } = request;
 
@@ -262,27 +207,3 @@ fastify.register((instance, {}, done) => {
   );
   done();
 });
-
-// const { PORT } = process.env;
-// const CURRENTPORT = PORT || 3000;
-
-// const start = async () => {
-//   try {
-//     await sequelizeDataBase.authenticate(); // проверка дб в консоле при npm run-e
-//     await sequelizeDataBase.sync(); // проверяет состояние бд со схемой данных
-//     fastify
-//       .listen({
-//         port: CURRENTPORT,
-//         host: '0.0.0.0',
-//       })
-//       .then(() => console.log(CURRENTPORT));
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// start();
-
-export default {
-  SECRET_KEY,
-  fastify,
-};
