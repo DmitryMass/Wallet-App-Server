@@ -5,11 +5,24 @@ import {
   amountValidationScheme,
   removeCardValidationScheme,
   cardValidationScheme,
+  signValidationScheme,
 } from './ValidationScheme/sign-validation.mjs';
 import * as dotenv from 'dotenv';
+import { compare, hash } from 'bcrypt';
 dotenv.config();
 
 const { verify } = pkg;
+
+function jwtToken(id, email) {
+  return sign(
+    {
+      id,
+      email,
+    },
+    process.env.SECRET_KEY,
+    { expiresIn: '24h' }
+  );
+}
 
 export const fastify = Fastify({
   logger: true,
@@ -27,7 +40,49 @@ fastify.register(import('@fastify/cookie'), {
 });
 
 //
+fastify.post(
+  '/api/registration',
+  signValidationScheme,
+  async (request, reply) => {
+    const { email, password } = request.body;
 
+    if (await User.findOne({ where: { email } })) {
+      return reply.status(400).send({ info: 'Email already exist' });
+    }
+    const user = await User.create({
+      email,
+      password: await hash(password, 10),
+    });
+
+    user.save();
+    return reply.status(200).send({ info: 'Registration successful' });
+  }
+);
+
+fastify.post('/api/login', signValidationScheme, async (request, reply) => {
+  const { email, password } = request.body;
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    return reply.status(400).send({ info: 'User not found' });
+  }
+
+  if (user && (await compare(password, user.password))) {
+    const newToken = jwtToken(user.id, user.email);
+    return reply
+      .setCookie('newToken', newToken, {
+        httpOnly: true,
+      })
+      .send({ info: 'Ok' });
+  }
+  return reply.status(400).send({ info: 'Not correct password' });
+});
+
+fastify.delete('/api/logout', async (request, reply) => {
+  return reply.clearCookie('newToken').send('Token deleted');
+});
+//
+//
 fastify.register((instance, {}, done) => {
   instance.addHook('onRequest', async (request, reply) => {
     const { newToken } = request.cookies;
