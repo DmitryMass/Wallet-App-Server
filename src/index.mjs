@@ -11,7 +11,7 @@ import * as dotenv from 'dotenv';
 import { compare, hash } from 'bcrypt';
 dotenv.config();
 
-const { verify } = pkg;
+const { sign, verify } = pkg;
 
 function jwtToken(id, email) {
   return sign(
