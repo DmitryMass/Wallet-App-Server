@@ -12,7 +12,7 @@ import { compare, hash } from 'bcrypt';
 dotenv.config();
 
 const { sign, verify } = pkg;
-
+//
 function jwtToken(id, email) {
   return sign(
     {
