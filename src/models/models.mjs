@@ -48,7 +48,6 @@ export const UserCards = sequelizeDataBase.define(
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      // type: DataTypes.NUMERIC(10, 2),
     },
     currency: {
       type: DataTypes.STRING,
@@ -106,10 +105,3 @@ UserCards.belongsTo(User);
 
 User.hasMany(UsersCash);
 UsersCash.belongsTo(User);
-
-// module.exports = {
-//   User,
-//   UserCards,
-//   UsersCash,
-// };
-//  Тоже самое что и userId привязка

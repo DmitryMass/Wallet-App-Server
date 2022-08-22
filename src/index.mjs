@@ -2,24 +2,21 @@ import Fastify from 'fastify';
 import { User, UserCards, UsersCash } from './models/models.mjs';
 import { compare, hash } from 'bcrypt';
 import pkg from 'jsonwebtoken';
-import sequelizeDataBase from './db.mjs';
-
+// import sequelizeDataBase from './db.mjs';
 import {
   signValidationScheme,
   amountValidationScheme,
   removeCardValidationScheme,
   cardValidationScheme,
 } from './ValidationScheme/sign-validation.mjs';
-
-import './models/models.mjs';
-
+// import './models/models.mjs';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 const { sign, verify } = pkg;
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const fastify = Fastify({
+export const fastify = Fastify({
   logger: true,
 });
 
@@ -187,9 +184,6 @@ fastify.register((instance, {}, done) => {
     }
   );
 
-  //
-  //
-
   instance.get('/api/cash', async (request, reply) => {
     const { user } = request;
 
@@ -269,24 +263,24 @@ fastify.register((instance, {}, done) => {
   done();
 });
 
-const { PORT } = process.env;
-const CURRENTPORT = PORT || 3000;
+// const { PORT } = process.env;
+// const CURRENTPORT = PORT || 3000;
 
-const start = async () => {
-  try {
-    await sequelizeDataBase.authenticate(); // проверка дб в консоле при npm run-e
-    await sequelizeDataBase.sync(); // проверяет состояние бд со схемой данных
-    fastify
-      .listen({
-        port: CURRENTPORT,
-        host: '0.0.0.0',
-      })
-      .then(() => console.log(CURRENTPORT));
-  } catch (err) {
-    console.log(err);
-  }
-};
-start();
+// const start = async () => {
+//   try {
+//     await sequelizeDataBase.authenticate(); // проверка дб в консоле при npm run-e
+//     await sequelizeDataBase.sync(); // проверяет состояние бд со схемой данных
+//     fastify
+//       .listen({
+//         port: CURRENTPORT,
+//         host: '0.0.0.0',
+//       })
+//       .then(() => console.log(CURRENTPORT));
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+// start();
 
 export default {
   SECRET_KEY,
