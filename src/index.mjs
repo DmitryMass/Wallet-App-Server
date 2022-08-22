@@ -253,7 +253,6 @@ fastify.register((instance, {}, done) => {
         await cash.destroy();
         await cash.save();
 
-        reply.removeHeader('content-length');
         return reply.send(
           await UsersCash.findAll({ where: { userId: user.id } })
         );
