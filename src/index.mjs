@@ -39,20 +39,6 @@ fastify.register(import('@fastify/cookie'), {
   parseOption: {},
 });
 
-fastify.addContentTypeParser(
-  'application/json',
-  { parseAs: 'string' },
-  function (req, body, done) {
-    try {
-      const json = JSON.parse(body);
-      done(null, json);
-    } catch (err) {
-      err.statusCode = 400;
-      done(err, undefined);
-    }
-  }
-);
-
 //
 fastify.post(
   '/api/registration',
@@ -189,6 +175,7 @@ fastify.register((instance, {}, done) => {
         await card.destroy();
         await card.save();
 
+        reply.removeHeader('content-length');
         return reply.send(
           await UserCards.findAll({ where: { userId: user.id } })
         );
