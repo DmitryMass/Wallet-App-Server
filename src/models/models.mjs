@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
-const sequelizeDataBase = require('../db');
+import { DataTypes } from 'sequelize';
+import sequelizeDataBase from '../db.mjs';
 
 // import to file SERVER для подключения к бд
-const User = sequelizeDataBase.define(
+export const User = sequelizeDataBase.define(
   'user',
   {
     id: {
@@ -28,7 +28,7 @@ const User = sequelizeDataBase.define(
   // имя таблицы равно имени модели без каких-либо изменений (freezTableName)
 );
 
-const UserCards = sequelizeDataBase.define(
+export const UserCards = sequelizeDataBase.define(
   'user_cards',
   {
     id: {
@@ -77,7 +77,7 @@ const UserCards = sequelizeDataBase.define(
   }
 );
 
-const UsersCash = sequelizeDataBase.define(
+export const UsersCash = sequelizeDataBase.define(
   'user_cash',
   {
     id: {
@@ -107,9 +107,9 @@ UserCards.belongsTo(User);
 User.hasMany(UsersCash);
 UsersCash.belongsTo(User);
 
-module.exports = {
-  User,
-  UserCards,
-  UsersCash,
-};
+// module.exports = {
+//   User,
+//   UserCards,
+//   UsersCash,
+// };
 //  Тоже самое что и userId привязка

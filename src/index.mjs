@@ -1,31 +1,35 @@
-const Fastify = require('fastify');
-const { User, UserCards, UsersCash } = require('./models/models');
-const { compare, hash } = require('bcrypt');
-const { sign, verify } = require('jsonwebtoken');
-const {
+import Fastify from 'fastify';
+import { User, UserCards, UsersCash } from './models/models.mjs';
+import { compare, hash } from 'bcrypt';
+import pkg from 'jsonwebtoken';
+import sequelizeDataBase from './db.mjs';
+
+import {
   signValidationScheme,
-  cardValidationScheme,
   amountValidationScheme,
   removeCardValidationScheme,
-} = require('./ValidationScheme/sign-validation');
-const sequelizeDB = require('./db');
+  cardValidationScheme,
+} from './ValidationScheme/sign-validation.mjs';
 
-require('./models/models');
-require('dotenv').config();
+import './models/models.mjs';
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const { sign, verify } = pkg;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const fastify = Fastify({
   logger: true,
 });
 
-fastify.register(require('@fastify/cors'));
-fastify.register(require('@fastify/multipart'), {
+fastify.register(import('@fastify/cors'));
+fastify.register(import('@fastify/multipart'), {
   addToBody: true,
   preservePath: true,
 });
 
-fastify.register(require('@fastify/cookie'), {
+fastify.register(import('@fastify/cookie'), {
   secret: 'my-secret',
   parseOption: {},
 });
@@ -270,8 +274,8 @@ const CURRENTPORT = PORT || 3000;
 
 const start = async () => {
   try {
-    await sequelizeDB.authenticate(); // проверка дб в консоле при npm run-e
-    await sequelizeDB.sync(); // проверяет состояние бд со схемой данных
+    await sequelizeDataBase.authenticate(); // проверка дб в консоле при npm run-e
+    await sequelizeDataBase.sync(); // проверяет состояние бд со схемой данных
     fastify
       .listen({
         port: CURRENTPORT,
@@ -284,7 +288,7 @@ const start = async () => {
 };
 start();
 
-module.exports = {
+export default {
   SECRET_KEY,
   fastify,
 };

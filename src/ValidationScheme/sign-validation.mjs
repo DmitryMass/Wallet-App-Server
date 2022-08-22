@@ -1,4 +1,4 @@
-const signValidationScheme = {
+export const signValidationScheme = {
   schema: {
     body: {
       type: 'object',
@@ -19,7 +19,7 @@ const signValidationScheme = {
   },
 };
 
-const cardValidationScheme = {
+export const cardValidationScheme = {
   schema: {
     body: {
       type: 'object',
@@ -48,7 +48,7 @@ const cardValidationScheme = {
   },
 };
 
-const amountValidationScheme = {
+export const amountValidationScheme = {
   schema: {
     body: {
       type: 'object',
@@ -63,7 +63,7 @@ const amountValidationScheme = {
   },
 };
 
-const removeCardValidationScheme = {
+export const removeCardValidationScheme = {
   schema: {
     params: {
       type: 'object',
@@ -75,11 +75,4 @@ const removeCardValidationScheme = {
       },
     },
   },
-};
-
-module.exports = {
-  removeCardValidationScheme,
-  amountValidationScheme,
-  cardValidationScheme,
-  signValidationScheme,
 };
