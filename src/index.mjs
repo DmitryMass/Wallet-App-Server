@@ -175,7 +175,6 @@ fastify.register((instance, {}, done) => {
         await card.destroy();
         await card.save();
 
-        reply.removeHeader('content-length');
         return reply.send(
           await UserCards.findAll({ where: { userId: user.id } })
         );
